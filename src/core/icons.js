@@ -9,5 +9,6 @@
  * <icon type="bxAnaalyse" />
  */
 import bxAnaalyse from '@/assets/icons/bx-analyse.svg?inline' // path to your '*.svg?inline' file.
+import logo from '@/assets/logo.svg?inline'
 
-export { bxAnaalyse }
+export { bxAnaalyse, logo }

@@ -4,8 +4,10 @@ import { mapActions } from 'vuex'
 import { timeFix, isAjaxSuccess } from '@/utils/util'
 import { isEmail } from '@/utils/validator'
 import config from '@/config/defaultSettings'
+import Carousel from '@/components/Carousel'
 export default {
   name: 'SimpleLogin',
+  components: { Carousel },
   data () {
     return {
       LoginForm: this.$form.createForm(this),
@@ -19,6 +21,12 @@ export default {
         // login type: 0 email, 1 username, 2 telephone
         loginType: 0
       }
+    }
+  },
+  computed: {
+    logo () {
+      if (!config.logo) return ''
+      return require(`@/assets/` + config.logo)
     }
   },
   methods: {
@@ -86,53 +94,36 @@ export default {
   render () {
     const placeholderIconStl = { color: 'rgba(0,0,0,.25)' }
     return (
-      <a-form id="formLogin" class="user-layout-login" ref="formLogin" form={this.LoginForm} onSubmit={this.handleSubmit}>
-        <a-form-item>
-          <a-input size="large" type="text" placeholder="输入登录账户" v-decorator={this.LoginRules.username}>
-            <a-icon slot="prefix" type="user" style={ placeholderIconStl } />
-          </a-input>
-        </a-form-item>
-        <a-form-item>
-          <a-input size="large" type="password" autocomplete="false" placeholder="输入用户密码" v-decorator={this.LoginRules.password}>
-            <a-icon slot="prefix" type="lock" style={ placeholderIconStl } />
-          </a-input>
-        </a-form-item>
-        {
-          config.LoginLayout.forgetPassword && (
-            <a-form-item>
-              <a-checkbox v-decorator={['rememberMe']}>自动登录</a-checkbox>
-              <router-link
-                to={{ name: 'recover', params: { user: 'aaa' } }}
-                class="forge-password"
-                style="float: right;"
-              >忘记密码</router-link>
-            </a-form-item>
-          )
-        }
-        <a-form-item>
-          <a-button
-            html-type="submit"
-            size="large"
-            type="primary"
-            class="login-button"
-            loading={this.state.loginStatus}
-            disabled={this.state.loginStatus}
-          >确定</a-button>
-        </a-form-item>
-        {
-          config.LoginLayout.otherLoginTypes && config.LoginLayout.otherLoginTypes.length && (
-            <div class="user-login-other">
-              <span>其他登录方式</span>
-              {
-                config.LoginLayout.otherLoginTypes.map(type => {
-                  return (<a><a-icon class="item-icon" type={type.iconCls}></a-icon></a>)
-                })
-              }
-              <router-link class="register" to={{ name: 'register' }}>注册账户</router-link>
-            </div>
-          )
-        }
-      </a-form>
+      <div class="pages-user-index-login">
+        <carousel />
+        <div class="pages-user-index-box">
+          <div class="pages-user-index-content">
+            <div class="pages-user-index-header"><img src={this.logo} style="width: 44px; height: 44px; margin-right: 16px;" alt="logo" />{config.title}</div>
+            <a-form id="formLogin" class="user-layout-login" ref="formLogin" form={this.LoginForm} onSubmit={this.handleSubmit}>
+              <a-form-item>
+                <a-input size="large" type="text" placeholder="输入登录账户" v-decorator={this.LoginRules.username}>
+                  <a-icon slot="prefix" type="user" style={ placeholderIconStl } />
+                </a-input>
+              </a-form-item>
+              <a-form-item>
+                <a-input size="large" type="password" autocomplete="false" placeholder="输入用户密码" v-decorator={this.LoginRules.password}>
+                  <a-icon slot="prefix" type="lock" style={ placeholderIconStl } />
+                </a-input>
+              </a-form-item>
+              <a-form-item>
+                <a-button
+                  html-type="submit"
+                  size="large"
+                  type="primary"
+                  block
+                  loading={this.state.loginStatus}
+                  disabled={this.state.loginStatus}
+                >确定</a-button>
+              </a-form-item>
+            </a-form>
+          </div>
+        </div>
+      </div>
     )
   }
 }
@@ -141,16 +132,14 @@ export default {
 <style lang="less" scoped>
 .user-layout-login{
   user-select: none;
-  margin-top: 20px;
+  // margin-top: 28px;
+  margin-top: 12%;
 
   .forge-password {
     font-size: 14px;
   }
   a-form-item:last-of-type{
     margin-top: 24px;
-  }
-  .login-button{
-    width: 100%;
   }
 
   .user-login-other {
@@ -176,4 +165,197 @@ export default {
     }
   }
 }
+.pages-user-index-login {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: #3a4257;
+  background-size: cover;
+  background-position: center;
+}
+
+.pages-user-index-bg {
+  background: #347ebc;
+  width: 100%;
+  height: 237px;
+  opacity: .6;
+  position: absolute;
+  top: calc(50vh - 118.5px)
+}
+
+.pages-user-index-abstract-title {
+  width: 510px;
+  height: 237px;
+  color: #fff;
+  font-size: 72px;
+  position: absolute;
+  padding-top: 20px;
+  left: 15%;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.pages-user-index-abstract-description {
+  color: #fff;
+  margin-left: 6px;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.pages-user-index-box {
+  width: 355px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.pages-user-index-content {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 0 50px rgba(0, 0, 0, .4);
+  border-radius: 5px;
+  padding: 12% 10%;
+}
+
+.pages-user-index-header {
+  width: 100%;
+  height: 35px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: rgba(0, 0, 0, .85);
+  font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+}
+
+@media (min-width: 0px) and (max-width:1400px) {
+  .pages-user-index-box {
+    width: 340px;
+  }
+  .pages-user-index-abstract-title {
+    // width: 400px;
+    width: auto;
+    font-size: 64px
+  }
+}
+
+@media (min-width: 400px) and (max-width:800px) {
+  .pages-user-index-box {
+    right: 20%;
+    width: 320px;
+    // width: 300px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+  }
+
+  .pages-user-index-abstract-title {
+    position: absolute;
+    top: 100px;
+    font-size: 50px;
+    width: 100%;
+    text-align: center;
+    height: 200px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+
+  .pages-user-index-abstract-description {
+    width: 100%;
+    padding: 0 50px;
+    text-align: center;
+    font-size: 13px;
+    height: 60px;
+  }
+}
+
+@media (min-width: 330px) and (max-width:420px) {
+  .pages-user-index-box {
+    right: 20%;
+    // width: 300px;
+    width: 290px;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+  }
+
+  .pages-user-index-abstract-title {
+    position: absolute;
+    top: 10%;
+    font-size: 36px;
+    width: 100%;
+    text-align: center;
+    height: 200px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+
+  .pages-user-index-abstract-description {
+    width: 100%;
+    padding: 0 50px;
+    text-align: center;
+    font-size: 13px;
+    height: 60px;
+    color: transparent;
+  }
+}
+
+@media (min-width: 0px) and (max-width:330px) {
+  .pages-user-index-box {
+    right: 20%;
+    width: 280px;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+  }
+
+  .pages-user-index-abstract-title {
+    position: absolute;
+    top: 10%;
+    font-size: 36px;
+    width: 100%;
+    text-align: center;
+    height: 200px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+
+  .pages-user-index-abstract-description {
+    width: 100%;
+    padding: 0 50px;
+    text-align: center;
+    font-size: 13px;
+    height: 60px;
+    color: transparent;
+  }
+}
+
+@media (max-height: 600px) {
+  .pages-user-index-abstract-title {
+    top: 0;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+  }
+}
+
 </style>

@@ -26,6 +26,7 @@ export default {
     locale: true
   },
   title: '昂宝中控平台',
+  logo: 'logo.svg',
   pwa: false,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
