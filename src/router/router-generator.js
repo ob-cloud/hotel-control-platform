@@ -12,11 +12,11 @@ const constantRouterComponents = {
   '404': () => import(/* webpackChunkName: "error" */ '@/views/exception/404'),
   '500': () => import(/* webpackChunkName: "error" */ '@/views/exception/500'),
 
-  'Analysis': () => import('@/views/dashboard/Analysis'),
+  'Analysis': () => import('@/views/dashboard/Analysis')
 
   // result
-  'ResultSuccess': () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
-  'ResultFail': () => import(/* webpackChunkName: "result" */ '@/views/result/Error')
+  // 'ResultSuccess': () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
+  // 'ResultFail': () => import(/* webpackChunkName: "result" */ '@/views/result/Error')
 }
 
 // 前端未找到页面路由（固定不用改）

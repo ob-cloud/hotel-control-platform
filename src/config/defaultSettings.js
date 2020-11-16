@@ -25,7 +25,7 @@ export default {
   menu: {
     locale: true
   },
-  title: '昂宝中控平台',
+  title: '昂宝智慧中控系统',
   logo: 'logo.svg',
   pwa: false,
   iconfontUrl: '',
