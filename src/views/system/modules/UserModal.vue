@@ -42,23 +42,14 @@
 
         <a-form-item label="角色分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!roleDisabled">
           <a-select
-            mode="multiple"
             style="width: 100%"
             placeholder="请选择用户角色"
             optionFilterProp="children"
-            v-model="selectedRole"
+            v-decorator="[ 'selectedroles', {initialValue: undefined, rules: [{ required: true, message: '请选择用户角色!' }]}]"
           >
             <a-select-option v-for="(role,roleindex) in roleList" :key="roleindex.toString()" :value="role.id">
               {{ role.roleName }}
             </a-select-option>
-          </a-select>
-        </a-form-item>
-
-        <a-form-item label="用户类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-select v-decorator="[ 'type', { initialValue: 0 }]" placeholder="请选择用户类型">
-            <a-select-option :value="0">集团用户</a-select-option>
-            <a-select-option :value="1">酒店用户</a-select-option>
-            <a-select-option :value="2">超级用户</a-select-option>
           </a-select>
         </a-form-item>
 
@@ -178,7 +169,7 @@
         visible: false,
         model: {},
         roleList: [],
-        selectedRole: [],
+        // selectedRole: [],
         labelCol: {
           xs: { span: 24 },
           sm: { span: 5 }
@@ -237,7 +228,8 @@
           userid: userid
         }).then((res) => {
           if (this.$isAjaxSuccess(res.code)) {
-            this.selectedRole = res.result
+            // this.selectedRole = res.result
+            this.form.setFieldsValue({ selectedroles: res.result ? res.result[0] : '' })
           } else {
             console.log(res.message)
           }
@@ -263,14 +255,14 @@
         this.visible = true
         this.model = Object.assign({}, record)
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model, 'username', 'sex', 'realname', 'email', 'phone', 'activitiSync', 'type'))
+          this.form.setFieldsValue(pick(this.model, 'username', 'sex', 'realname', 'email', 'phone', 'activitiSync'))
         })
       },
       close () {
         this.$emit('close')
         this.visible = false
         this.disableSubmit = false
-        this.selectedRole = []
+        // this.selectedRole = []
       },
       moment,
       handleSubmit () {
@@ -283,7 +275,7 @@
             values.birthday = values.birthday ? values.birthday.format(this.dateFormat) : ''
             const formData = Object.assign(this.model, values)
             // formData.avatar = avatar
-            formData.selectedroles = this.selectedRole.length > 0 ? this.selectedRole.join(',') : ''
+            // formData.selectedroles = this.selectedRole.length > 0 ? this.selectedRole.join(',') : ''
 
             if (!this.model.id) {
               formData.id = this.userId

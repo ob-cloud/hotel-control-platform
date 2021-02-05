@@ -130,7 +130,7 @@ export default {
       params.pageNo = this.ipagination.current
       params.pageSize = this.ipagination.pageSize
       this.loading = true
-      getSysLogList({ ...params, hotelId: this.$store.getters.hotelId }).then((res) => {
+      getSysLogList({ ...params }).then((res) => {
         if (this.$isAjaxSuccess(res.code)) {
           this.dataSource = res.result.records
           this.ipagination.total = res.result.total || 0

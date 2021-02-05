@@ -8,7 +8,6 @@ import {
 
 // 首页
 const getGroupStatistic = () => getAction('/home/getAgent')
-const getHotelStatistic = (hotelId) => getAction('/home/getHotel', { hotelId })
 
 /// Menu
 // 获取菜单、按钮权限列表
@@ -128,7 +127,6 @@ const exportsLogs = (startTime, endTime) => {
 
 export {
   getGroupStatistic,
-  getHotelStatistic,
   // Menu
   getMenuList,
   addMenu,

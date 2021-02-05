@@ -240,15 +240,6 @@ export default {
             return statusMap[t] || ''
           }
         },
-        {
-          title: '用户类型',
-          align: 'center',
-          width: 120,
-          dataIndex: 'type',
-          customRender (t) {
-            return t ? '酒店用户' : '集团用户'
-          }
-        },
         // {
         //   title: '创建时间',
         //   align: "center",

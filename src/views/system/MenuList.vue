@@ -93,7 +93,7 @@
         return ['菜单', '子菜单', '按钮/权限'][text] || text
       }
     }, {
-      title: 'icon',
+      title: '图标',
       dataIndex: 'icon',
       key: 'icon'
     }, {
