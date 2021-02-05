@@ -4,6 +4,7 @@ import { mapState } from 'vuex'
 const mixin = {
   computed: {
     ...mapState({
+      isMobile: state => state.app.isMobile,
       layoutMode: state => state.app.layout,
       layout: state => state.app.layout,
       navTheme: state => state.app.theme,

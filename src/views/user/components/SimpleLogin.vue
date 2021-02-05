@@ -2,7 +2,6 @@
 import md5 from 'md5'
 import { mapActions } from 'vuex'
 import { timeFix, isAjaxSuccess } from '@/utils/util'
-import { isEmail } from '@/utils/validator'
 import config from '@/config/defaultSettings'
 import Carousel from '@/components/Carousel'
 export default {
@@ -12,14 +11,12 @@ export default {
     return {
       LoginForm: this.$form.createForm(this),
       LoginRules: {
-        username: [ 'username', { initialValue: '', rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: this.handleUsernameOrEmail }], validateTrigger: ['blur', 'change'] } ],
+        username: [ 'username', { initialValue: '', rules: [{ required: true, message: '请输入帐户名' }, { validator: this.handleUsername }], validateTrigger: ['blur', 'change'] } ],
         password: [ 'password', { initialValue: '', rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur' } ]
       },
       state: {
         time: 60,
-        loginStatus: false,
-        // login type: 0 email, 1 username, 2 telephone
-        loginType: 0
+        loginStatus: false
       }
     }
   },
@@ -31,9 +28,7 @@ export default {
   },
   methods: {
     ...mapActions(['Login', 'Logout']),
-    handleUsernameOrEmail (rule, value, callback) {
-      const { state } = this
-      state.loginType = 1 - isEmail(value)
+    handleUsername (rule, value, callback) {
       callback()
     },
     handleSubmit (e) {
@@ -43,14 +38,10 @@ export default {
         state,
         Login
       } = this
-
       state.loginStatus = true
-
       validateFields(['username', 'password'], { force: true }, (err, values) => {
         if (!err) {
           const loginParams = { ...values }
-          delete loginParams.username
-          loginParams[!state.loginType ? 'email' : 'username'] = values.username
           loginParams.password = md5(values.password)
           Login(loginParams)
             .then((res) => this.loginSuccess(res))

@@ -96,6 +96,9 @@ const app = {
           reject(e)
         })
       })
+    },
+    ToggleMultiTab ({ commit }, bool) {
+      commit(TOGGLE_MULTI_TAB, bool)
     }
   }
 }

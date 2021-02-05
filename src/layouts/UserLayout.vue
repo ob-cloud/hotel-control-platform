@@ -1,15 +1,12 @@
 <template>
-  <div id="userLayout" :class="['user-layout-wrapper', device]">
+  <div id="userLayout" :class="['user-layout-wrapper']">
     <router-view />
   </div>
 </template>
 
 <script>
-import { mixinDevice } from '@/utils/mixin'
-
 export default {
   name: 'UserLayout',
-  mixins: [mixinDevice],
   mounted () {
     document.body.classList.add('userLayout')
   },

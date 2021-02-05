@@ -1,12 +1,11 @@
 <template>
   <div class="user-wrapper">
     <div class="content-box">
-      <bizz-conserve-select :value="hotelId" :dataSource="hotelList" :optionItemProp="{label: 'hotelName'}" @select="onHotelSelect" placeholder="请选择酒店" />
       <notice-icon class="action" />
       <a-dropdown>
         <span class="action ant-dropdown-link user-dropdown-menu">
           <a-avatar v-if="avatar" class="avatar" size="small" :src="avatar" />
-          <a-avatar v-else>Hotel</a-avatar>
+          <a-avatar v-else>User</a-avatar>
           <span>{{ nickname }}</span>
         </span>
         <a-menu slot="overlay" class="user-dropdown-menu-wrapper">
@@ -41,22 +40,20 @@
 </template>
 
 <script>
-import BizzConserveSelect from '@/components/Bizz/BizzConserveSelect'
 import NoticeIcon from '@/components/NoticeIcon'
 import UserPassword from './UserPassword'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'UserMenu',
   components: {
-    BizzConserveSelect,
     NoticeIcon,
     UserPassword
   },
   computed: {
-    ...mapGetters(['nickname', 'avatar', 'userInfo', 'hotelId', 'hotelList'])
+    ...mapGetters(['nickname', 'avatar', 'userInfo'])
   },
   methods: {
-    ...mapActions(['Logout', 'UpdateHotelId']),
+    ...mapActions(['Logout']),
     handleLogout () {
       this.$confirm({
         title: '提示',
@@ -80,13 +77,6 @@ export default {
     updatePassword () {
       const username = this.userInfo.username
       this.$refs.userPassword.show(username)
-    },
-    onHotelSelect (hotelId) {
-      console.log('[hotel] ', hotelId)
-      this.UpdateHotelId(hotelId).then(() => {
-        // window.location.reload()
-        this.reload()
-      })
     },
     // 当前页刷新
     reload () {

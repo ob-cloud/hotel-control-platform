@@ -14,6 +14,7 @@ import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import './mock'
 
 import bootstrap from './core/bootstrap'
+import './core/string'
 import './core/lazy_use' // use lazy load components
 import './utils/filter' // global filter
 import '@/assets/styles/global.less' // global style

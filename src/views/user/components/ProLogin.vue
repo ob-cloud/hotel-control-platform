@@ -31,7 +31,6 @@
 import md5 from 'md5'
 import { mapActions } from 'vuex'
 import { timeFix, isAjaxSuccess } from '@/utils/util'
-import { isEmail } from '@/utils/validator'
 const background = require('@/assets/images/background.svg')
 export default {
 name: 'SimpleLogin',
@@ -39,7 +38,7 @@ name: 'SimpleLogin',
     return {
       LoginForm: this.$form.createForm(this),
       LoginRules: {
-        username: [ 'username', { initialValue: '', rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: this.handleUsernameOrEmail }], validateTrigger: ['blur', 'change'] } ],
+        username: [ 'username', { initialValue: '', rules: [{ required: true, message: '请输入帐户名' }, { validator: this.handleUsername }], validateTrigger: ['blur', 'change'] } ],
         password: [ 'password', { initialValue: '', rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur' } ]
       },
       state: {
@@ -52,9 +51,7 @@ name: 'SimpleLogin',
   },
   methods: {
     ...mapActions(['Login', 'Logout']),
-    handleUsernameOrEmail (rule, value, callback) {
-      const { state } = this
-      state.loginType = 1 - isEmail(value)
+    handleUsername (rule, value, callback) {
       callback()
     },
     handleSubmit (e) {
@@ -69,8 +66,7 @@ name: 'SimpleLogin',
       validateFields(['username', 'password'], { force: true }, (err, values) => {
         if (!err) {
           const loginParams = { ...values }
-          delete loginParams.username
-          loginParams[!state.loginType ? 'email' : 'username'] = values.username
+          loginParams.username = values.username
           loginParams.password = md5(values.password)
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
