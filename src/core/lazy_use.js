@@ -45,7 +45,15 @@ import {
   Descriptions,
   message,
   notification,
-  Carousel
+  Carousel,
+  Empty,
+  Tree,
+  Space,
+  Pagination,
+  FormModel,
+  Cascader,
+  Slider,
+  TreeSelect
 } from 'ant-design-vue'
 import Viser from 'viser-vue'
 
@@ -106,6 +114,14 @@ Vue.use(Result)
 Vue.use(Statistic)
 Vue.use(Descriptions)
 Vue.use(Carousel)
+Vue.use(Empty)
+Vue.use(Tree)
+Vue.use(Space)
+Vue.use(Pagination)
+Vue.use(FormModel)
+Vue.use(Cascader)
+Vue.use(Slider)
+Vue.use(TreeSelect)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
