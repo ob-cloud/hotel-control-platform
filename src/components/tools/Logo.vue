@@ -1,10 +1,6 @@
 <template>
   <div class="logo">
     <router-link :to="{name:'dashboard'}">
-      <!-- <LogoSvg alt="logo" /> -->
-      <!-- <Logo alt="logo" /> -->
-      <!-- <img :src="Logo" alt="logo">
-      <h1 v-if="showTitle">{{ title }}</h1> -->
       <img :src="systemLogo" alt="logo">
       <h1 v-if="showTitle">{{ systemTitle }}</h1>
     </router-link>
@@ -12,8 +8,6 @@
 </template>
 
 <script>
-// import LogoSvg from '@/assets/logo.svg?inline'
-// import Logo from '@/assets/logo.png'
 import config from '@/config/defaultSettings'
 export default {
   name: 'Logo',

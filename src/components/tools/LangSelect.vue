@@ -29,11 +29,11 @@
 </template>
 
 <script>
-// import { mixin as langMixin } from '@/store/i18n-mixin'
+// import { i18nMixin } from '@/utils/mixin'
 
 export default {
   name: 'LangSelect',
-  // mixins: [langMixin],
+  // mixins: [i18nMixin],
   data () {
     return {}
   },

@@ -2,7 +2,7 @@ import storage from 'store'
 import {
   SIDEBAR_TYPE,
   TOGGLE_MOBILE_TYPE,
-  TOGGLE_NAV_THEME,
+  TOGGLE_THEME,
   TOGGLE_LAYOUT,
   TOGGLE_FIXED_HEADER,
   TOGGLE_FIXED_SIDEBAR,
@@ -20,6 +20,7 @@ const app = {
   state: {
     sideCollapsed: false,
     isMobile: false,
+    device: 'desktop',
     theme: 'dark',
     layout: '',
     contentWidth: '',
@@ -40,9 +41,9 @@ const app = {
     [TOGGLE_MOBILE_TYPE]: (state, isMobile) => {
       state.isMobile = isMobile
     },
-    [TOGGLE_NAV_THEME]: (state, theme) => {
+    [TOGGLE_THEME]: (state, theme) => {
       state.theme = theme
-      storage.set(TOGGLE_NAV_THEME, theme)
+      storage.set(TOGGLE_THEME, theme)
     },
     [TOGGLE_LAYOUT]: (state, mode) => {
       state.layout = mode
@@ -83,6 +84,9 @@ const app = {
     }
   },
   actions: {
+    setSidebar ({ commit }, type) {
+      commit(SIDEBAR_TYPE, type)
+    },
     setLang ({ commit }, lang) {
       return new Promise((resolve, reject) => {
         commit(APP_LANGUAGE, lang)

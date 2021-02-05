@@ -14,7 +14,7 @@ export default {
       }
     },
     changeAirConditionToAction (action, device, room) {
-      return this.toAction(action, {'device_child_type': '01', addr: 'fe', 'device_type': device.deviceType, name: device.name, index: device.index, node_type: '07'}, room)
+      return this.toAction(action, { 'device_child_type': '01', addr: 'fe', 'device_type': device.deviceType, name: device.name, index: device.index, node_type: '07' }, room)
     },
     changeSwitchButtonToAction (value, device, room) {
       const status = new Array(7).fill(0)
@@ -60,10 +60,10 @@ export default {
       return power ? 'on' : 'off'
     },
     getAirConditionKeys (templure, mode, speed, windVertical, windHorizon) {
-      const modeMap = {0: 'a', 1: 'r', 2: 'd', 3: 'w', 4: 'h'}[mode]
-      const speedMap = {0: 's0', 1: 's1', 2: 's2', 3: 's3'}[speed]
-      const windVerticalMap = {0: 'u0', 1: 'u1'}[windVertical] || ''
-      const windHorizonMap = {0: 'l0', 1: 'l1'}[windHorizon] || ''
+      const modeMap = { 0: 'a', 1: 'r', 2: 'd', 3: 'w', 4: 'h' }[mode]
+      const speedMap = { 0: 's0', 1: 's1', 2: 's2', 3: 's3' }[speed]
+      const windVerticalMap = { 0: 'u0', 1: 'u1' }[windVertical] || ''
+      const windHorizonMap = { 0: 'l0', 1: 'l1' }[windHorizon] || ''
       return `${modeMap}_${speedMap}_${[1, 3, 4].includes(mode) ? templure : ''}_${windVerticalMap}_${windHorizonMap}_p0`
     },
     hasVerticalWind (keys) {
@@ -85,5 +85,5 @@ export default {
     isV3Ac (rmodel) {
       return rmodel && rmodel.toLowerCase().includes('v3')
     }
-  },
+  }
 }

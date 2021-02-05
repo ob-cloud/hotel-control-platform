@@ -34,6 +34,7 @@ export function getReqBaseUrl () {
   return isProEnv() ? envConfig.prod.baseApi : envConfig.dev.baseApi
 }
 
+// @TODO router.base
 export const ROUTER_BASE = isProEnv() ? 'hcp' : '/'
 
 export default envConfig

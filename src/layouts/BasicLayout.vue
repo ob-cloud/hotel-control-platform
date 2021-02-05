@@ -4,6 +4,7 @@
     :collapsed="collapsed"
     :mediaQuery="query"
     :isMobile="isMobile"
+    :logo="logoRender"
     :handleMediaQuery="handleMediaQuery"
     :handleCollapse="handleCollapse"
     :i18nRender="i18nRender"
@@ -14,7 +15,8 @@
     -->
     <template v-slot:menuHeaderRender>
       <div>
-        <logo-svg />
+        <!-- <logo-svg /> -->
+        <img src="../assets/logo.svg" alt="logo">
         <h1>{{ title }}</h1>
       </div>
     </template>
@@ -37,14 +39,12 @@ import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mu
 import defaultSettings from '@/config/defaultSettings'
 import RightContent from '@/components/GlobalHeader/RightContent'
 // import GlobalFooter from '@/components/GlobalFooter'
-import LogoSvg from '../assets/logo.svg?inline'
 
 export default {
   name: 'BasicLayout',
   components: {
-    RightContent,
+    RightContent
     // GlobalFooter,
-    LogoSvg
   },
   data () {
     return {
@@ -105,6 +105,10 @@ export default {
   },
   methods: {
     i18nRender,
+    logoRender () {
+      const Logo = require('@/assets/logo.svg')
+      return (<img src={Logo} alt="logo" />)
+    },
     handleMediaQuery (val) {
       this.query = val
       if (this.isMobile && !val['screen-xs']) {
@@ -113,9 +117,15 @@ export default {
       }
       if (!this.isMobile && val['screen-xs']) {
         this.isMobile = true
-        this.collapsed = false
+        this.collapsed = true
         this.settings.contentWidth = CONTENT_WIDTH_TYPE.Fluid
         this.settings.fixSiderbar = false
+      } else if (!this.isMobile && (val['screen-sm'] || val['screen-md'])) {
+        this.isMobile = false
+        this.collapsed = true
+      } else {
+        this.isMobile = false
+        this.collapsed = false
       }
     },
     handleCollapse (val) {

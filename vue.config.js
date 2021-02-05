@@ -55,8 +55,7 @@ const vueConfig = {
   },
 
   chainWebpack: (config) => {
-    config.resolve.alias
-      .set('@$', resolve('src'))
+    config.resolve.alias.set('@$', resolve('src'))
 
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
@@ -109,7 +108,7 @@ const vueConfig = {
         ws: false,
         changeOrigin: true,
         pathRewrite: {
-          '/pro': '' //默认所有请求都加了/pro前缀，需要去掉
+          '/pro': '' // 默认所有请求都加了/pro前缀，需要去掉
         }
       }
     }
