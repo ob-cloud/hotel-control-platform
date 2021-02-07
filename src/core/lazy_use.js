@@ -68,6 +68,7 @@ import PageLoading from '@/components/PageLoading'
 import isPermitted from '@/core/directives/permission'
 import { $isPermitted } from '@/core/directives/permission/button'
 import { isAjaxSuccess } from '@/utils/util'
+import vueBus from '@/utils/vueBus'
 
 Vue.prototype.$isPermitted = $isPermitted
 Vue.prototype.$isAjaxSuccess = isAjaxSuccess
@@ -138,4 +139,5 @@ Vue.use(PageLoading)
 // Vue.use(PermissionHelper)
 Vue.use(VueCropper)
 Vue.use(isPermitted)
+Vue.use(vueBus)
 // process.env.NODE_ENV !== 'production' && console.warn('[antd-pro] NOTICE: Antd use lazy-load.')

@@ -1,18 +1,21 @@
 <template>
   <div :class="wrpCls">
+    <notice-icon></notice-icon>
     <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
     <!-- <select-lang :class="prefixCls" /> -->
   </div>
 </template>
 
 <script>
+import NoticeIcon from '../NoticeIcon'
 import AvatarDropdown from './AvatarDropdown'
 // import SelectLang from '@/components/SelectLang'
 import { mapGetters } from 'vuex'
 export default {
   name: 'RightContent',
   components: {
-    AvatarDropdown
+    AvatarDropdown,
+    NoticeIcon
     // SelectLang
   },
   props: {
